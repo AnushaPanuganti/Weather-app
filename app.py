@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request
+from cgitb import html
+from flask import Flask, render_template, request, redirect
+from config import db 
+from models import User
 
 app = Flask(__name__)
 
@@ -11,22 +14,27 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     else:
-        print("login called with POST as method")
         username = request.form['username']
-        print("username : ",username )
+        password = request.form['password']
+        
+        if db.users.find_one({"username": username, "password": password}):
+            return "Login success"
 
-        #Todo: 
-        # verify if username and password exists in the db
-        # if exists: 
-        #   redirect to homepage
-        # else: 
-        #   redirect to register
+        return redirect('/register')
 
-        return 'received username:'+username
 
 @app.route('/register')
 def register():
-    pass
+    #TODO: 
+    # If req is get -> return register.html
+    # else -> parse request object, 
+    # if username is in db:
+    #     redirect to login
+    # else:  save user details into db
+    # show a success message
+    
+    
+    return "You are in register page"
 
 @app.route('/homepage')
 def homepage():
