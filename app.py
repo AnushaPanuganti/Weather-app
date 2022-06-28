@@ -31,7 +31,8 @@ def register():
     # else -> parse request object, 
     else:
         username = request.form['username']
-        password = request.form['set password']
+        password = request.form['set_password']
+        confirm_password = request.form['confirm_password']
         # if username is in db:
         if db.users.find_one({"username": username}):
             print("user already exists")

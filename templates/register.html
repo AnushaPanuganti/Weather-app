@@ -10,11 +10,80 @@
     <div>
         <h3>Register </h3>
         <form action="/register" method="POST">
-            <input type="text" name="username" placeholder="enter username"/> <br><br>
-            <input type="password" name="set password" placeholder="enter password"/> <br><br>
-
-            <input type="submit" />
+            <input type="text" name= "username" placeholder="enter username" onkeypress="unamecheck()"/> <br><br>
+            <input type="password" name= "set_password" placeholder="set password" oninput="pwdcheck()" onfocus="msg()"  pattern="^[a-zA-Z](?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="Must contain at least one number,one uppercase and lowercase letter, and at least 4 or more characters,shud start with a letter" required />
+            <input type="password" name= "confirm_password" onkeypress="checkpassword()" placeholder="confirm password"/> <br><br>
+            <input type ="submit" id="register" value = "Register" disabled /> 
         </form>
+        <style>
+            input[type="submit"] {
+                background-color: #04AA6D;
+                color: white;
+            }
+            #message {
+                background: #f1f1f1;
+                color: #000;
+                padding: 20px;
+                margin-top: 10px;
+            }
+            #message p {
+                padding: 10px 35px;
+                font-size: 18px;
+            }
+        </style>
+            <div id="message">
+                <h3>Password must contain the following:</h3>
+                <p>Start with an <b>alphabet</b></p>
+                <p>A <b>lowercase</b> letter</p>
+                <p>A <b>capital (uppercase)</b> letter</p>
+                <p>A <b>number</b></p>
+                <p>Minimum<b>4 characters</b></p>
+            </div>
+            <script>
+            console.log("outside function") ;
+                function unamecheck() {
+                    var uname = document.getElementByName("username");
+                    var uname1 = /(?! .*[!@#$%^&*])(?! .*[ ]{2} )$/;
+                    if(uname.value.match(uname1)) {
+                        alert("username is proper");
+                        return true;
+                    }else {
+                        alert("remove spaces and special characters if any");
+                        return false;
+                    }
+
+                }
+                function msg() {
+                    document.getElementById("message").style.display = "block";
+                }
+                function pwdcheck() {
+                    var passw = /^[a-zA-Z](?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}$/;
+                    var pwf = document.getElementsByName("set_password")[0];
+                    if(pwf.value.match(passw)) {
+                        console.log("Password set correctly");
+                        return true;
+                    }else {
+                        console.log("Please follow instructions properly");
+                        return false;
+                    }
+                }
+                
+                // function checkpassword() { 
+                //     console.log("entered check box") ;
+                //     var pw1 = document.getElementsByName("set_password")[0].value;
+                //     var pw2 = document.getElementsByName("confirm_password")[0].value;
+                //     var bt = document.getElementById("register");
+                //     if(pw1 == pw2)  { 
+                //         console.log("Password created successfully");
+                //         bt.attributes.removeNamedItem("disabled"); 
+                //         return true;  
+                //     } else {
+                //         console.log("Password did not match"); 
+                //         bt.disabled = true;
+                //         return false;  
+                //     }
+                // }  
+            </script> 
     </div>
 </body>
 </html>
